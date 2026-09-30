@@ -48,12 +48,12 @@ public class java04_Operator {
         // System.out.println("j = " + j);
 
         // 前置递减 (--i) 运行代码
-       int i = 1;
-        // i = i - 1; // i = 0
-        // int j = i; // j = 0
-       int j = --i;
-        System.out.println("i = " + i);
-        System.out.println("j = " + j);
+//       int i = 1;
+//        // i = i - 1; // i = 0
+//        // int j = i; // j = 0
+//       int j = --i;
+//        System.out.println("i = " + i);
+//        System.out.println("j = " + j);
 
         // int i = 0;
         // int j = i++;
