@@ -1,3 +1,5 @@
+
+
 # Java 基础核心笔记
 
 ## 一、 基础概念与运行机制
@@ -406,4 +408,304 @@ public class java04_Operator04 {
 }
 ```
 
-未完待续...
+
+
+## 五、 流程控制
+
+> **概念**：所谓的流程控制，其实就是计算机在执行代码时，对指令代码执行顺序的控制。Java 中的流程控制主要分为 3 种：顺序执行、分支执行、重复执行。
+
+### 5.1 顺序执行
+
+* 代码出现的先后顺序以及语法的先后顺序。
+* **注意**：变量在使用之前，必须声明并进行了初始化。
+
+```java
+package chapter03;
+
+public class Java01_FlowControl {
+    public static void main(String[] args) {
+        // 变量在使用之前，必须声明并进行了初始化
+        int i = 10;
+        int j = 15;
+        System.out.println( i + j );
+    }
+}
+```
+
+### 5.2 分支执行
+
+分支结构主要包括 `if` 系列和 `switch` 结构。
+
+#### 5.2.1 if 分支结构
+* **单分支结构（可选分支）**：条件为 `true` 时执行，否则跳过。
+* **双分支结构（必选分支）**：使用 `if ... else`，二选一。
+* **多分支结构（多重判断）**：使用 `if ... else if ... [else]`。
+
+```java
+package Chapter03;
+
+public class Java02_FlowControl {
+    public static void main(String[] args) {
+        // 1. 可选分支：单分支结构
+        System.out.println("第一步");
+        System.out.println("第二步");
+        {
+            int i = 20;
+            if (i == 10) {
+                System.out.println("分支");
+            }
+        }
+
+        // 2. 必选分支：双分支结构（二选一）
+        {
+            int i = 20;
+            if ( i == 10 ) {
+                System.out.println("分支1");
+            } else {
+                System.out.println("分支2");
+            }
+            System.out.println("第三步");
+        }
+
+        // 3. 多分支：多重判断 if ... else if ... [else]
+        {
+            int i = 30;
+            if ( i == 10 ) {
+                System.out.println("分支1");
+            } else if (i == 20) {
+                System.out.println("分支2");
+            } else {
+                System.out.println("分支3");
+            }
+            System.out.println("第三步");
+        }
+    }
+}
+```
+
+#### 5.2.2 switch 分支结构
+* **语法**：`switch (数据) { case 值: 逻辑; break; ... default: 逻辑; }`
+* **穿透现象（break 的作用）**：如果没有写 `break`，程序会继续向下执行其他 `case` 分支。`break` 关键字用于跳出整个 `switch` 结构。
+* **default 分支**：当所有 case 都不匹配时执行。
+
+```java
+package Chapter03;
+
+public class Java03_FlowControl {
+    public static void main(String[] args) {
+        // ---------------- 第一段代码：无 break 的 switch 穿透现象 ----------------
+        {
+            System.out.println("第一步");
+            System.out.println("第二步");
+            int i = 20;
+
+            switch (i) {
+                case 10 :
+                    System.out.println("分支1");
+                case 20 :
+                    System.out.println("分支2");
+                case 30 :
+                    System.out.println("分支3");
+            }
+            System.out.println("第三步");
+        }
+
+        System.out.println("\n========== 分割线 ==========\n");
+
+        // ---------------- 第二段代码：使用 break 和 default 的 switch ----------------
+        {
+            System.out.println("第一步");
+            System.out.println("第二步");
+            int i = 10;
+
+            switch (i) {
+                case 10 :
+                    System.out.println("分支1");
+                    //break;
+                case 20 :
+                    System.out.println("分支2");
+                    break;
+                case 30 :
+                    System.out.println("分支3");
+                default:
+                    System.out.println("其他分支");
+            }
+            System.out.println("第三步");
+        }
+    }
+}
+```
+
+#### 5.2.3 分支小练习：年龄区间判断
+根据年龄判断阶段：儿童 (0~6)，少年 (7~17)，青年 (18~40)，中年 (41~65)，老年 (66+)。
+
+```java
+package Chapter03;
+
+public class Java04_FlowControl_Test {
+    public static void main(String[] args) {
+        int age = 45;
+        
+        // ----------------- 写法一：完整区间判断 -----------------
+        if ( age < 7 ) {
+            System.out.println("儿童");
+        } else if ( age >= 7 && age < 18 ) {
+            System.out.println("少年");
+        } else if ( age >= 18 && age < 41 ) {
+            System.out.println("青年");
+        } else if ( age >= 41 && age < 66 ) {
+            System.out.println("中年");
+        } else {
+            System.out.println("老年");
+        }
+
+        // ----------------- 写法二：优化后的区间判断 -----------------
+        // 利用了 else if 的特性：只要走到后面的分支，说明前面的条件必然不成立，因此无需重复写下限
+        if ( age < 7 ) {
+            System.out.println("儿童");
+        } else if ( age < 18 ) {
+            System.out.println("少年");
+        } else if ( age < 41 ) {
+            System.out.println("青年");
+        } else if ( age < 66 ) {
+            System.out.println("中年");
+        } else {
+            System.out.println("老年");
+        }
+    }
+}
+```
+
+### 5.3 循环执行
+
+#### 5.3.1 while 循环（有条件循环）
+* **语法**：`while (条件表达式) { 需要循环的代码 }`
+* **执行原理**：条件为 `true` 时执行循环体，执行完毕后重新判断条件；为 `false` 时跳出循环结构。
+
+```java
+// while 循环示例
+int age = 30;
+while ( age < 40 ) {
+    System.out.println("循环的代码");
+    age++; // 需要更新条件表达式中的变量，否则会死循环
+}
+```
+
+#### 5.3.2 do...while 循环
+* **语法**：`do { 循环代码 } while (条件表达式);`
+* **与 while 的区别**：
+    * `while` 循环可能执行，也可能不执行（先判断后执行）。
+    * `do...while` 循环语法中的循环代码**至少执行一次**（先执行后判断）。
+
+```java
+int age = 30;
+do {
+    System.out.println("循环的代码");
+    age++; 
+} while ( age < 40 );
+```
+
+#### 5.3.3 for 循环
+* **语法**：`for (初始化表达式; 条件表达式; 更新表达式) { 循环的代码 }`
+* **执行流程**：初始化 -> 判断条件 -> 执行循环体 -> 更新表达式 -> 再次判断条件...
+
+```java
+for ( int i = 0; i < 40; i++) {
+    System.out.println("循环的代码");
+}
+System.out.println("第二步");
+```
+
+#### 5.3.4 循环控制：break 与 continue
+* **`break`**：直接跳出整个循环，不再执行循环后续的操作。
+* **`continue`**：跳过当前这一次循环，直接进入下一次循环。
+
+```java
+package Chapter03;
+
+public class Java05_FlowControl01 {
+    public static void main(String[] args) {
+        System.out.println("--- 写法一：使用 if-else 结构 ---");
+        for ( int i = 0; i < 10; i++ ) {
+            if ( i == 4 ) {
+                // 当 i == 4 时，什么都不做（空代码块）
+            } else {
+                System.out.println(i);
+            }
+        }
+
+        System.out.println("\n--- 写法二：使用 continue 关键字 ---");
+        for ( int i = 0; i < 10; i++ ) {
+            if ( i == 4 ) {
+                //break;   // 如果使用 break，循环在 i=4 时直接结束
+                continue;  // 跳过 i=4 的打印，继续执行 i=5
+            }
+            System.out.println(i);
+        }
+    }
+}
+```
+
+#### 5.3.5 循环小练习：九层妖塔
+
+**阶段一：手动逐层打印（未优化）**
+思路：固定层数，手动用四个 `for` 循环分别打印 `1、3、5、7` 个星号（注意：此处未打印前导空格，实际效果为左对齐直角三角形）。
+
+```java
+package Chapter03;
+
+public class Java05_FlowControl_Test {
+    public static void main(String[] args) {
+        System.out.println("========== 阶段一：手动逐层打印（未优化） ==========");
+        {
+            // 打印第一层的数据
+            for (int i = 0; i < 1; i++) {
+                System.out.print("*");
+            }
+            System.out.println("");
+
+            // 打印第二层的数据
+            for (int i = 0; i < 3; i++) {
+                System.out.print("*");
+            }
+            System.out.println("");
+
+            // 打印第三层的数据
+            for (int i = 0; i < 5; i++) {
+                System.out.print("*");
+            }
+            System.out.println("");
+
+            // 打印第四层的数据
+            for (int i = 0; i < 7; i++) {
+                System.out.print("*");
+            }
+            System.out.println("");
+        }
+
+        System.out.println("\n========== 阶段二：使用嵌套循环优化 ==========");
+        {
+            // 规律分析：
+            // 星号数量公式：j * 2 + 1
+            // 空格数量公式：(level - 1) - j
+            int level = 3; // 可以修改此变量改变塔的层数
+
+            for ( int j = 0; j < level; j++ ) {
+                // 打印每一层前面的空格
+                for ( int i = 0; i < (level - 1) - j; i++ ) {
+                    System.out.print(" ");
+                }
+
+                // 打印每一层的星号
+                for (int i = 0; i < j * 2 + 1; i++) {
+                    System.out.print("*");
+                }
+
+                // 换行
+                System.out.println("");
+            }
+        }
+    }
+}
+```
+
