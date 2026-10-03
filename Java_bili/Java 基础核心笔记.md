@@ -709,4 +709,255 @@ public class Java05_FlowControl_Test {
 }
 ```
 
-## 未完待续...。
+
+
+## 六、 面向对象基础
+
+> **核心思想**：面向对象其实就是分析问题时，以问题所涉及到的事或物为中心的分析方式。类表示归纳和整理，对象就表示具体的事物。
+
+### 6.1 类与对象的基础定义
+
+```java
+package Chapter04;
+
+public class Java01_Object {
+    public static void main(String[] args) {
+        // TODO 面向对象
+        // 所谓的面向对象，其实就是分析问题时，以问题所涉及到的事或物为中心的分析方式
+        // 类和对象
+        // 类表示归纳和整理
+        // 对象就表示具体的事物
+
+        // TODO class (类)
+        /*
+        基本语法结构：
+
+        class 类名 {
+            特征（属性），
+            功能（方法）
+        }
+
+        创建对象的语法：
+        new 类名();
+        */
+
+        // 问题：做一道菜，红烧排骨
+        // 类：菜， 对象：红烧排骨
+
+        // TODO 1. 先声明类 (见下方 Cooking 类)
+        // TODO 2. 创建对象
+        // TODO 3. 声明属性，所谓的属性其实就是类中的变量
+        //         变量类型  变量名称 = 变量值
+        //         属性类型  属性名称 = 属性值
+
+        // 引用数据类型
+        Cooking c = new Cooking();
+        c.name = "红烧排骨";
+        c.food = "排骨";
+
+        // TODO 4. 声明方法 (见下方 Cooking 类中的 execute 方法)
+        // void 方法名 (参数) { 功能代码 }
+
+        // TODO 5. 执行方法
+        // 对象.方法名()
+        c.execute();
+
+    }
+}
+
+
+class Cooking {
+
+    // 特征（属性）
+    // 名字
+    String name;
+    // 菜的类型
+    String type = "红烧";
+    // 食材
+    String food;
+    // 佐料
+    String relish = "大料";
+
+    // TODO 执行
+    void execute() {
+        System.out.println("准备食材:" + food);
+        System.out.println("准备佐料:" + relish);
+        System.out.println("开始烹饪");
+        System.out.println(name + "烹饪完成");
+    }
+}
+```
+
+### 6.2 多个对象的实例化与操作
+
+```java
+package Chapter04;
+
+public class Java02_Object_01 {
+    public static void main(String[] args) {
+
+        // TODO 面向对象
+
+        // 类: 动物
+        // 对象: 猫, 狗
+        Animal a1 = new Animal();
+        a1.type = "猫";
+        a1.name = "小黑";
+        a1.run();
+
+        Animal a2 = new Animal();
+        a2.type = "狗";
+        a2.name = "大黄";
+        a2.run();
+
+    }
+}
+
+class Animal {
+
+    String type;
+    String name;
+
+    void run() {
+        System.out.println(type + " " + name + "跑开了");
+    }
+}
+```
+
+```java
+package chapter04;
+
+public class Java02_Object_1 {
+    public static void main(String[] args) {
+        
+        // TODO 面向对象
+        // 狗：2只，小黑，小白
+        Dog dog1 = new Dog();
+        dog1.color = "white";
+        dog1.name = "小白";
+        dog1.run();
+        
+        Dog dog2 = new Dog();
+        dog2.color = "black";
+        dog2.name = "小黑";
+        dog2.run();
+        
+    }
+}
+
+class Dog {
+    
+    String color;
+    String name;
+    
+    void run() {
+        System.out.println(name + "跑开了");
+    }
+}
+```
+
+### 6.3 面向对象基本语法总结
+
+```java
+package Chapter04;
+
+public class Java03_Object {
+    public static void main(String[] args) {
+
+        // TODO 面向对象
+
+        /*
+            基本语法:
+
+            声明
+                class 类名 {
+                    // 属性 (0个或多个)
+                    类型 名称 = 值
+                    // 方法 (行为, 0个或多个)
+                    void 方法名() {
+                        逻辑代码
+                    }
+                }
+
+            使用
+                构造对象: new 类名()
+                访问属性: 对象.属性名
+                访问方法: 对象.方法名()
+        */
+    }
+}
+```
+
+### 6.4 对象的引用与内存分配
+
+```java
+package Chapter04;
+
+public class Java04_Object_Class {
+    public static void main(String[] args) {
+
+        // TODO 面向对象
+        // 类: 结构体，里面包含了属性（特征）和方法（行为）
+        //     会有很多的对象。
+        // class : 关键字（全是小写）
+        // 类名: 类的名称，标识符。遵循规则。一般情况下，类名的首写字母是大写。
+
+        // 对象: 类的实例化（具象化）
+        //     new 类名()，下括号需要增加。
+        //     new也是关键字，表示创建一个具体的对象，而且，使用一次，创建一次，每次都是全新的
+        // 一般new出来的对象会赋值给变量，方便重复使用
+        //     new User04();
+        //     new User04();
+        //     new User04();
+        User04 user = new User04();
+
+        // 变量的类型就是对象的类型。
+        // 对象是将内存地址赋值给了变量，所以变量其实引用了内存中的对象，所以称之为引用变量，
+        // 而变量的类型称之为引用数据类型。
+
+        // 特殊的对象：空对象(null)，没有引用的对象，称之为空对象，关键字对象。
+        // 所有引用类型变量的默认取值就是null
+        User04 user1 = null;
+
+    }
+}
+
+class User04 {
+
+}
+```
+
+### 6.5 属性的定义与默认初始化
+
+```java
+package Chapter04;
+
+public class Java05_Object_Field {
+    public static void main(String[] args) {
+
+        // TODO 面向对象 - 属性
+        // 所谓的属性，其实就是类的对象的相同特征。
+        // 语法和变量的声明很像。
+        // 属性类型 属性名称 = 属性值
+        // 如果在声明属性的同时进行了初始化赋值，那么所有对象的属性就完全相同
+        // 所以如果希望每个对象的属性不一致，那么可以不用在声明属性的时候进行初始化。
+        // 那么属性会在构造对象的时候默认初始化，而默认初始化的值取决于属性的类型.
+        // byte ,short, int ,long => 0
+        // float, double => 0.0
+        // boolean flg = false
+        // char = 空字符
+        // 引用数据类型 => null
+
+        // 变量的作用域非常小，只在当前的大括号内有效
+        // 属性不仅仅在当前类中有效，而且可以随着对象在其他地方使用
+        // 变量使用前必须初始化，否则会出现错误，属性可以不用初始化，因为JVM会帮助我们自动完成初始化。
+        String name = "zhangsan";
+
+    }
+}
+
+class User05 {
+    //String name = "zhangsan";
+    String name;
+}
+```
